@@ -1,0 +1,39 @@
+.mintContainer {
+  background: url("../../assets/images/dedBackgroundIMG.png") !important;
+  background-size: cover !important;
+  background-position: 50% !important;
+}
+
+.mintIMG {
+  width: 80%;
+  height: 80%;
+}
+
+.mintBTN {
+  margin-top: 20px !important;
+  font-size: 1.3rem !important;
+  width: 100%;
+}
+
+.plusBTN,
+.minusBTN {
+  margin-top: 20px !important;
+  font-size: 1.6rem !important;
+}
+
+@media (max-width: 600px) {
+  .mintIMG {
+    width: 100%;
+  }
+
+  .mintFucContainer {
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mintIMG {
+    width: 100%;
+  }
+}
