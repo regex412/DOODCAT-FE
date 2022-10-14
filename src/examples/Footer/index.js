@@ -18,7 +18,6 @@ import PropTypes from "prop-types";
 
 // @mui material components
 import Link from "@mui/material/Link";
-import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -27,20 +26,9 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React base styles
 import typography from "assets/theme/base/typography";
 
-function Footer({ company, links }) {
+function Footer({ company }) {
   const { href, name } = company;
   const { size } = typography;
-
-  const renderLinks = () =>
-    links.map((link) => (
-      <MDBox key={link.name} component="li" px={2} lineHeight={1}>
-        <Link href={link.href} target="_blank">
-          <MDTypography variant="button" fontWeight="regular" color="text">
-            {link.name}
-          </MDTypography>
-        </Link>
-      </MDBox>
-    ));
 
   return (
     <MDBox
@@ -85,7 +73,11 @@ function Footer({ company, links }) {
           },
         })}
       >
-        {renderLinks()}
+        <MDTypography variant="button" fontWeight="medium">
+          <a href="https://doodcats.net" alt="doodcat.net">
+            SpaceCats
+          </a>
+        </MDTypography>
       </MDBox>
     </MDBox>
   );
@@ -94,15 +86,11 @@ function Footer({ company, links }) {
 // Setting default values for the props of Footer
 Footer.defaultProps = {
   company: { href: "https://www.creative-tim.com/", name: "INFINITE TEAM" },
-  links: [
-    { href: "https://www.creative-tim.com/presentation", name: "About Us" },
-  ],
 };
 
 // Typechecking props for the Footer
 Footer.propTypes = {
   company: PropTypes.objectOf(PropTypes.string),
-  links: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Footer;

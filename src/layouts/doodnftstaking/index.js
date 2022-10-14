@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-no-useless-fragment */
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
@@ -475,8 +476,8 @@ function DoodNftStaking() {
                                           direction="row"
                                           p={3}
                                         >
-                                          {stakedNFTs.map((nft) => (
-                                            <Grid item xs={12} xl={3} md={3} mb={3}>
+                                          {stakedNFTs.map((nft, index) => (
+                                            <Grid item xs={12} xl={3} md={3} mb={3} key={index}>
                                               <MDBox mb={1.5}>
                                                 <NFTCard
                                                   tokenID={nft.tokenId}
@@ -630,8 +631,8 @@ function DoodNftStaking() {
                                         </div>
                                       ) : (
                                         <>
-                                          {unstakedNFTs.map((nft) => (
-                                            <Grid item xs={12} xl={3} md={3} mb={3}>
+                                          {unstakedNFTs.map((nft, index) => (
+                                            <Grid item xs={12} xl={3} md={3} mb={3} key={index}>
                                               <MDBox mb={1.5}>
                                                 <NFTCard
                                                   tokenID={nft.tokenId}
