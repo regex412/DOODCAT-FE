@@ -27,7 +27,7 @@ import { injected, useEagerConnect, useInactiveListener } from "../../../utils/h
 import connectedIcon from "../../../assets/images/connectedIcon.png";
 
 function DashboardNavbar({ absolute, light, isMini }) {
-  const { account, deactivate } = useWeb3React();
+  const { account } = useWeb3React();
   const triedEager = useEagerConnect();
 
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
@@ -79,10 +79,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   });
 
   // Disconnect Function
-  const disconnect = () => {
-    deactivate();
-    window.location.reload();
-  };
+  const disconnect = () => {};
 
   return (
     <AppBar

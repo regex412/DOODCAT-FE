@@ -25,6 +25,7 @@ import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React base styles
 import typography from "assets/theme/base/typography";
+import "./Footer.css";
 
 function Footer({ company }) {
   const { href, name } = company;
@@ -38,6 +39,7 @@ function Footer({ company }) {
       justifyContent="space-between"
       alignItems="center"
       px={1.5}
+      className="footer"
     >
       <MDBox
         display="flex"

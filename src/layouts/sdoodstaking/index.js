@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { useState, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -29,9 +30,36 @@ import "./sdoodstaking.css";
 
 const ethers = require("ethers");
 
+const minuteSeconds = 60;
+const hourSeconds = 3600;
+const daySeconds = 86400;
+
+// eslint-disable-next-line no-unused-vars
+const timerProps = {
+  isPlaying: true,
+  size: 55,
+  strokeWidth: 2,
+};
+
+// eslint-disable-next-line no-unused-vars
+const renderTime = (dimension, time) => (
+  <div className="time-wrapper">
+    <div className="time">{time}</div>
+    <div>{dimension}</div>
+  </div>
+);
+
+// eslint-disable-next-line no-bitwise
+const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
+// eslint-disable-next-line no-bitwise
+const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
+// eslint-disable-next-line no-bitwise
+const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
+// eslint-disable-next-line no-bitwise
+const getTimeDays = (time) => (time / daySeconds) | 0;
+
 function SDoodStaking() {
   const { account } = useWeb3React();
-
   const [loadingStake1State, setLoadingStake1State] = useState(false);
   const [loadingStake2State, setLoadingStake2State] = useState(false);
   const [loadingStake3State, setLoadingStake3State] = useState(false);
@@ -43,10 +71,9 @@ function SDoodStaking() {
   const [Amount_90, setAmount_90] = useState(0);
   const [Amount_120, setAmount_120] = useState(0);
 
-  // const [sdoodContract, setSDooDContract] = useState(null);
-  // const [sdoodStakingContract, setSDooDStakingContract] = useState(null);
+  const [daysDuration, setDaysDuration] = useState(0);
+  const [remainingTime, setRemainingTime] = useState(0);
 
-  const [stakedDay, setStakedDay] = useState(0);
   const [stakedAmount, setStakedAmount] = useState(0);
   const [earnPercent, setEarnPercent] = useState(0);
   const [stakeState, setStakeState] = useState(false);
@@ -87,13 +114,21 @@ function SDoodStaking() {
 
   // Claim State Function
   const claimState = () => {
-    const presentTimeInSeconds = Math.floor(Date.now() / 1000);
     sdoodStakingContract.stakingInfos(account).then((stakeInfo) => {
       const c_stakedDay = Number(stakeInfo.stakingtype.toString()) / 3600 / 24;
       const c_lefttime = Number(stakeInfo.lockdeadline.toString());
       const c_stakedAmount = Number(stakeInfo.amount.toString()) / 10 ** 18;
       setStakedAmount(c_stakedAmount);
-      setStakedDay(Math.floor((c_lefttime - presentTimeInSeconds) / 3600 / 24));
+      // eslint-disable-next-line no-shadow
+      const stratTime = Date.now() / 1000; // use UNIX timestamp in seconds
+      // eslint-disable-next-line no-shadow
+      const endTime = c_lefttime + (c_stakedDay - 2) * 3600; // use UNIX timestamp in seconds
+      const remainingTimes = endTime - stratTime;
+      setRemainingTime(remainingTimes);
+      // eslint-disable-next-line no-shadow
+      const days = Math.ceil(remainingTimes / daySeconds);
+      const daysDurations = days * daySeconds;
+      setDaysDuration(daysDurations);
       setStakeState(stakeInfo.isStaked);
       if (c_stakedDay === 30) {
         setEarnPercent(5);
@@ -481,8 +516,8 @@ function SDoodStaking() {
                   </Grid>
                 ) : (
                   <Grid container spacing={4} mt={3} mb={3}>
-                    <Grid item xs={12} xl={4} md={4} mb={3} />
-                    <Grid item xs={12} xl={4} md={4}>
+                    <Grid item xs={12} xl={3} md={3} mb={3} />
+                    <Grid item xs={12} xl={5} md={5}>
                       <Card>
                         <MDBox
                           mx={2}
@@ -503,8 +538,77 @@ function SDoodStaking() {
                             Total sDOOD Staked: {stakedAmount} sDOOD
                           </MDTypography>
                           <MDTypography variant="h6" textAlign="center">
-                            Day Left to Mature: {stakedDay} days
+                            Day Left to Mature.🕜
                           </MDTypography>
+                          <MDBox
+                            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+                          >
+                            <MDBox style={{ paddingRight: "1%" }}>
+                              <CountdownCircleTimer
+                                {...timerProps}
+                                colors="#7E2E84"
+                                duration={daysDuration}
+                                initialRemainingTime={remainingTime}
+                              >
+                                {({ elapsedTime, color }) => (
+                                  <span style={{ color, fontSize: "15px" }}>
+                                    {renderTime("Days", getTimeDays(daysDuration - elapsedTime))}
+                                  </span>
+                                )}
+                              </CountdownCircleTimer>
+                            </MDBox>
+                            <MDBox style={{ paddingRight: "1%" }}>
+                              <CountdownCircleTimer
+                                {...timerProps}
+                                colors="#D14081"
+                                duration={daySeconds}
+                                initialRemainingTime={remainingTime % daySeconds}
+                                onComplete={(totalElapsedTime) => ({
+                                  shouldRepeat: remainingTime - totalElapsedTime > hourSeconds,
+                                })}
+                              >
+                                {({ elapsedTime, color }) => (
+                                  <span style={{ color, fontSize: "15px" }}>
+                                    {renderTime("Hrs", getTimeHours(daySeconds - elapsedTime))}
+                                  </span>
+                                )}
+                              </CountdownCircleTimer>
+                            </MDBox>
+                            <MDBox style={{ paddingRight: "1%" }}>
+                              <CountdownCircleTimer
+                                {...timerProps}
+                                colors="#EF798A"
+                                duration={hourSeconds}
+                                initialRemainingTime={remainingTime % hourSeconds}
+                                onComplete={(totalElapsedTime) => ({
+                                  shouldRepeat: remainingTime - totalElapsedTime > minuteSeconds,
+                                })}
+                              >
+                                {({ elapsedTime, color }) => (
+                                  <span style={{ color, fontSize: "15px" }}>
+                                    {renderTime("Mins", getTimeMinutes(hourSeconds - elapsedTime))}
+                                  </span>
+                                )}
+                              </CountdownCircleTimer>
+                            </MDBox>
+                            <MDBox>
+                              <CountdownCircleTimer
+                                {...timerProps}
+                                colors="#218380"
+                                duration={minuteSeconds}
+                                initialRemainingTime={remainingTime % minuteSeconds}
+                                onComplete={(totalElapsedTime) => ({
+                                  shouldRepeat: remainingTime - totalElapsedTime > 0,
+                                })}
+                              >
+                                {({ elapsedTime, color }) => (
+                                  <span style={{ color, fontSize: "15px" }}>
+                                    {renderTime("Secs", getTimeSeconds(elapsedTime))}
+                                  </span>
+                                )}
+                              </CountdownCircleTimer>
+                            </MDBox>
+                          </MDBox>
                           <MDTypography variant="h6" textAlign="center">
                             Earning: {earnPercent} %
                           </MDTypography>
@@ -525,7 +629,7 @@ function SDoodStaking() {
                         </MDBox>
                       </Card>
                     </Grid>
-                    <Grid item xs={12} xl={4} md={4} />
+                    <Grid item xs={12} xl={3} md={3} />
                   </Grid>
                 )}
               </MDBox>
