@@ -17,7 +17,6 @@ Coded by www.creative-tim.com
 import PropTypes from "prop-types";
 
 // @mui material components
-import Link from "@mui/material/Link";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -28,7 +27,7 @@ import typography from "assets/theme/base/typography";
 import "./Footer.css";
 
 function Footer({ company }) {
-  const { href, name } = company;
+  const { name } = company;
   const { size } = typography;
 
   return (
@@ -50,12 +49,12 @@ function Footer({ company }) {
         fontSize={size.sm}
         px={1.5}
       >
-        &copy; {new Date().getFullYear()}, made with by
-        <Link href={href} target="_blank">
+        &copy; {new Date().getFullYear()}, made by
+        <a href="mailto:lukaskelley412@gmail.com">
           <MDTypography variant="button" fontWeight="medium">
             &nbsp;{name}&nbsp;
           </MDTypography>
-        </Link>
+        </a>
         for a SpaceCats website.
       </MDBox>
       <MDBox

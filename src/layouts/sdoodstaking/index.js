@@ -122,7 +122,7 @@ function SDoodStaking() {
       // eslint-disable-next-line no-shadow
       const stratTime = Date.now() / 1000; // use UNIX timestamp in seconds
       // eslint-disable-next-line no-shadow
-      const endTime = c_lefttime + (c_stakedDay - 2) * 3600; // use UNIX timestamp in seconds
+      const endTime = c_lefttime + c_stakedDay * 3600; // use UNIX timestamp in seconds
       const remainingTimes = endTime - stratTime;
       setRemainingTime(remainingTimes);
       // eslint-disable-next-line no-shadow

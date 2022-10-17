@@ -15,7 +15,7 @@ import SwapHorizontalCircleIcon from "@mui/icons-material/SwapHorizontalCircle";
 const routes = [
   {
     type: "collapse",
-    name: "DOODCAT NFT Staking",
+    name: "DOODCATs STAKING",
     key: "DoodNftStaking",
     icon: <LoyaltyIcon />,
     route: "/DoodNftStaking",
@@ -23,7 +23,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "DEDCAT NFT Staking",
+    name: "DEDDOODs STAKING",
     key: "DedNftStaking",
     icon: <LoyaltyIcon />,
     route: "/DedNftStaking",
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "SDOOD Staking",
+    name: "sDOOD STAKING",
     key: "SDoodStaking",
     icon: <LocalOfferIcon />,
     route: "/SDoodStaking",
@@ -39,7 +39,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Swap",
+    name: "SWAP",
     key: "Swap",
     icon: <SwapHorizontalCircleIcon />,
     route: "/Swap",
@@ -47,7 +47,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Mint",
+    name: "NFT MINT",
     key: "Mint",
     icon: <MedicalServicesIcon />,
     route: "/Mint",
@@ -55,7 +55,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Information",
+    name: "INFORMATION",
     key: "Information",
     icon: <AssessmentIcon />,
     route: "/Information",

@@ -9,8 +9,6 @@ import Icon from "@mui/material/Icon";
 
 // @mui icons
 import TwitterIcon from "@mui/icons-material/Twitter";
-import FacebookIcon from "@mui/icons-material/Facebook";
-
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -277,7 +275,7 @@ function Configurator() {
                 color="dark"
               >
                 <TwitterIcon />
-                &nbsp; Tweet
+                &nbsp; Twitter
               </MDButton>
             </MDBox>
             <MDButton
@@ -287,8 +285,8 @@ function Configurator() {
               rel="noreferrer"
               color="dark"
             >
-              <FacebookIcon />
-              &nbsp; Share
+              <i className="fab fa-discord" />
+              &nbsp; Discord
             </MDButton>
           </MDBox>
         </MDBox>
