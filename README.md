@@ -1,12 +1,11 @@
 ![image](https://user-images.githubusercontent.com/104538616/203418398-7fc07056-c791-4566-9238-6596a93f049e.png)
 
-**Documentation built by Developers**
-
+## Documentation built by Developers
 Each element is well presented in very complex documentation.
 
 You can read more about the [documentation here](https://www.creative-tim.com/learning-lab/react/overview/material-dashboard/).
 
-**HELPFUL LINKS**
+## HELPFUL LINKS
 
 - View [Github Repository](https://github.com/lukaskelley/DOODCAT-FE)
 
